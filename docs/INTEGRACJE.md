@@ -14,7 +14,7 @@
                     │                       │
               ┌─────┴─────┐          ┌──────┴──────┐
               │   AWU     │          │  Cyfrolog   │
-              │  ADMIN    │          │  (numery)   │
+              │  ADMIN    │          │   (WMS)     │
               └─────┬─────┘          └─────────────┘
                     │
          ┌──────────┼──────────┐
@@ -118,7 +118,7 @@
 
 ---
 
-## 5. Cyfrolog (numeracja CYF/EAN)
+## 5. Cyfrolog (WMS — numeracja CYF/EAN)
 
 **Priorytet:** Niski
 

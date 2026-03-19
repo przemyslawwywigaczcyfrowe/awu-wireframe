@@ -1,4 +1,4 @@
-# AWU — System Zarządzania Skupem Produktów Używanych
+# AWU — Automatyczna Wycena Używanych
 
 **Cyfrowe.pl** · Panel Operatora
 
@@ -14,7 +14,7 @@ Login testowy: `admin@cyfrowe.pl` / dowolne hasło
 
 ## O projekcie
 
-AWU to wewnętrzny system do zarządzania **pełnym cyklem życia produktów używanych** — od momentu, gdy klient chce nam sprzedać sprzęt, przez ekspertyzę, umowę, przygotowanie do sprzedaży, aż po wystawienie na stronie i Allegro.
+AWU (Automatyczna Wycena Używanych) to wewnętrzne narzędzie do **automatycznej wyceny produktów używanych** na cyfrowe.pl — generuje wyceny, umowy i pliki CSV, obsługując pełny cykl od momentu, gdy klient chce nam sprzedać sprzęt, przez ekspertyzę, umowę, przygotowanie do sprzedaży, aż po wystawienie na stronie i Allegro.
 
 ### Problem, który rozwiązujemy
 

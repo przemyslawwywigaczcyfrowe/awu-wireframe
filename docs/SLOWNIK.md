@@ -8,7 +8,7 @@
 
 | Pojęcie | Znaczenie |
 |---------|-----------|
-| **AWU** | System do zarządzania skupem produktów używanych (ten, który budujemy) |
+| **AWU** | Automatyczna Wycena Używanych — narzędzie do automatycznej wyceny produktów używanych na cyfrowe.pl. Generuje wyceny, umowy i pliki CSV. |
 | **Ekspertyza** | Fizyczna weryfikacja stanu sprzętu przez operatora — porównanie deklaracji klienta z rzeczywistością |
 | **Wycena** | Formularz złożony przez klienta (online) lub operatora (salon) z wyceną produktu/ów |
 | **Negocjacja** | Proces uzgadniania nowej ceny z klientem po weryfikacji, jeśli stan produktu odbiega od deklaracji |
@@ -36,7 +36,7 @@
 | **Verto** | System ERP Cyfrowe.pl — **źródło prawdy** o cenach, stanach magazynowych, dokumentach zakupu |
 | **Sylius** | Platforma e-commerce — sklep internetowy cyfrowe.pl |
 | **Baselinker** | Narzędzie do zarządzania aukcjami na Allegro i innych marketplace'ach |
-| **Cyfrolog** | System nadawania unikalnych numerów CYF i kodów EAN produktom |
+| **Cyfrolog** | WMS (Warehouse Management System) Cyfrowe.pl — system magazynowy, nadaje unikalne numery CYF i kody EAN produktom |
 | **Thulium** | Nowy system komunikacji z klientem (zastępuje OTRS). Obsługuje maile, SMS, tickety |
 | **OTRS** | Stary system ticketowy do komunikacji z klientem (zastępowany przez Thulium) |
 

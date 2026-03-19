@@ -151,9 +151,9 @@ Proces skupu opiera się na **6+ arkuszach Google Sheets**, systemie ticketowym 
 
 ---
 
-## 4. Cyfrolog
+## 4. Cyfrolog (WMS)
 
-**Do czego służy:** Nadawanie unikalnych numerów CYF i kodów EAN produktom.
+**Do czego służy:** WMS (Warehouse Management System) Cyfrowe.pl — system magazynowy, nadaje unikalne numery CYF i kody EAN produktom.
 
 **Problemy:**
 - Każdy produkt musi być wprowadzony pojedynczo
