@@ -58,6 +58,7 @@
 ### Zasada #1: PRODUKT jest główną encją
 
 Wycena grupuje produkty, ale po weryfikacji każdy produkt idzie własną ścieżką.
+Eskalacja ("Przekaż do centrali") działa **per produkt** — w jednej wycenie z 4 produktami, 1 produkt może być przekazany do centrali, a 3 pozostałe kontynuują normalnie.
 Moment przejścia z "wyceny" na "produkt": **zatwierdzenie umowy**.
 
 ### Encje
@@ -336,20 +337,28 @@ Location {
      └──────────────────┘
 
 Z dowolnego statusu (przed UMOWA PODPISANA):
-  → PRZEKAZANA DO CENTRALI
+  → PRZEKAZANA DO CENTRALI (dotyczy konkretnego PRODUKTU, nie całej wyceny)
   → ZWROT DO KLIENTA
 ```
+
+> **Zasada projektowa:** Na obecnym etapie nie ograniczamy przejść między statusami.
+> Produkt może przejść z dowolnego statusu na dowolny. Każda zmiana jest logowana
+> (kto, kiedy, z czego na co). Ewentualne ograniczenia przejść zostaną dodane w przyszłości.
+>
+> Powyższy diagram przedstawia **typowy flow**, ale NIE jest wymuszany przez system.
 
 ### 3.2 Krok Kanban (KanbanStep)
 
 ```
 NOWY → REGAL → INDEKS → KGM_WYDRUK → SESJA_PAKOWANIE → KARTA_PRODUKTU → PZK → FRONT → ALLEGRO → SPRZEDANY
 
-Zależności:
-- INDEKS blokuje: KGM_WYDRUK, SESJA_PAKOWANIE, KARTA_PRODUKTU
-- PZK blokuje: FRONT
-- KARTA_PRODUKTU + PZK → oba wymagane dla FRONT
+Typowy flow (kolejność niezmuszona przez system):
+- INDEKS zazwyczaj blokuje: KGM_WYDRUK, SESJA_PAKOWANIE, KARTA_PRODUKTU
+- PZK zazwyczaj blokuje: FRONT
+- KARTA_PRODUKTU + PZK → oba zalecane przed FRONT
 - Z dowolnego kroku: → SERWIS (ścieżka boczna)
+
+> Zasada projektowa: jak w statusach wyceny — brak wymuszonych ograniczeń przejść na obecnym etapie.
 ```
 
 ### 3.3 Status serwisowy (ServiceStatus)
@@ -406,13 +415,12 @@ DIAGNOSTYKA → WYCENA_NAPRAWY → OCZEKUJE_DECYZJI → W_NAPRAWIE → ZAKONCZON
 - Filtry: lokalizacja, data, operator
 - Podgląd szczegółów produktu z poziomu karty
 
-### Moduł 7: Szybka wycena salonowa
-- Wyszukiwanie produktu z katalogu
-- Ocena stanu (5-10/10)
-- Zaznaczenie akcesoriów
-- Natychmiastowe pokazanie ceny (przelew vs karta)
-- Wprowadzenie danych klienta
-- Generowanie umowy w jednym flow
+### Moduł 7: Szybka wycena salonowa (5-krokowy stepper)
+- **Krok 1: Produkty** — wyszukaj produkt, oceń stan, zaznacz akcesoria. Obsługa **wielu produktów** w jednej sesji.
+- **Krok 2: Cena** — cena odkupu (przelew vs karta). Senior/Admin widzi też cenę sprzedaży i marżę. Senior/Admin może edytować cenę. Operator widzi TYLKO cenę odkupu.
+- **Krok 3: Decyzja klienta** — A) niezainteresowany → KONIEC, B) umowa od razu → dalej, C) zostawia do ekspertyzy → dalej
+- **Krok 4: Dane klienta** — osoba fizyczna (imię, nazwisko, email, tel, PESEL) lub firma (TYLKO NIP → auto-uzupełnienie z GUS/CEIDG). Konto bankowe wymagane TYLKO przy przelewie + osoba fizyczna.
+- **Krok 5: Finalizacja** — numery seryjne wpisywane TERAZ. Generowanie: umowy (os. fiz.) / protokołu pozostawienia / protokołu przyjęcia (firma). Firma: czekamy na ich fakturę.
 - Cel: **jak najszybciej**, bez zbędnych kroków
 
 ### Moduł 8: Serwis

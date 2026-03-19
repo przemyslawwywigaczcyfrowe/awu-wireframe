@@ -26,6 +26,8 @@
 | **PCC** | Podatek od Czynności Cywilnoprawnych — naliczany od umów z osobami prywatnymi > 1000 zł. Termin: do 7. dnia następnego miesiąca |
 | **CSV** | Plik z danymi ekspertyzy/umowy — generowany przez obecny system AWU i wysyłany mailem |
 | **RMA** | Return Merchandise Authorization — zlecenie serwisowe w Verto |
+| **Protokół pozostawienia sprzętu** | Dokument potwierdzający, jaki sprzęt klient zostawił w salonie do ekspertyzy. Klient dostaje kopię jako potwierdzenie. |
+| **Protokół przyjęcia sprzętu (firma)** | Dokument dla firm — potwierdzenie przyjęcia sprzętu, na podstawie którego firma wystawia nam fakturę sprzedaży. |
 
 ## Systemy zewnętrzne
 

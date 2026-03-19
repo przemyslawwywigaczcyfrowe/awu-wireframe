@@ -182,40 +182,65 @@
 
 ## 5. Odkup — Szybka wycena salonowa
 
-### US-040: Szybka identyfikacja produktu
-**Jako** pracownik salonu, **chcę** szybko znaleźć produkt w katalogu, **aby** podać klientowi cenę bez szukania w Excelu.
+### US-040: Wiele produktów w jednej sesji wyceny salonowej
+**Jako** pracownik salonu, **chcę** dodać wiele produktów w jednej sesji wyceny, **aby** obsłużyć klienta, który przynosi kilka rzeczy naraz.
 
 **Kryteria akceptacji:**
-- Pole wyszukiwania z autouzupełnianiem
-- Wyniki z katalogu produktów (nazwa, marka, wariant)
+- Pole wyszukiwania produktu z autouzupełnianiem (katalog)
 - Opcja skanowania kodu kreskowego
 - Jeśli produktu nie ma w katalogu → ręczne wpisanie nazwy
+- Ocena stanu (5-10/10) i zaznaczenie akcesoriów per produkt
+- Przycisk "Dodaj kolejny produkt" — można dodać wiele produktów przed przejściem dalej
+- Lista dodanych produktów widoczna z opcją edycji/usunięcia
 
-### US-041: Szybka wycena i pokazanie ceny
-**Jako** pracownik salonu, **chcę** wybrać stan produktu i zobaczyć natychmiastowo proponowaną cenę, **aby** powiedzieć klientowi ile dostanie.
-
-**Kryteria akceptacji:**
-- Wybór stanu (5-10/10) jednym kliknięciem
-- Zaznaczenie posiadanych akcesoriów
-- Cena wyświetla się natychmiast (przelew vs karta)
-- Widoczna informacja o marży (dla senior operatorów)
-
-### US-042: Wprowadzenie danych klienta
-**Jako** pracownik salonu, **chcę** wprowadzić dane klienta i wygenerować umowę w jednym flow, **aby** nie przeskakiwać między systemami.
+### US-041: Cena widoczna, marża ukryta dla operatorów
+**Jako** pracownik salonu, **chcę** zobaczyć cenę odkupu (przelew vs karta), **aby** powiedzieć klientowi ile dostanie.
 
 **Kryteria akceptacji:**
-- Formularz: imię, nazwisko, email, telefon, PESEL, nr konta
-- Typ klienta: osoba fizyczna / firma
-- Jeśli firma: NIP, nazwa firmy
-- Adres (opcjonalny — wymagany przy wysyłce kurierem)
-- Walidacja danych przed generowaniem umowy
+- Cena odkupu (przelew i karta podarunkowa) wyświetla się natychmiast po ocenie stanu
+- Operator widzi TYLKO cenę odkupu — nie widzi ceny sprzedaży ani marży
+- Senior Operator / Admin widzi dodatkowo: cenę sprzedaży i marżę
+- Senior Operator / Admin może edytować cenę odkupu
+- Zwykły operator NIE może edytować ceny
 
-### US-043: Automatyczna lokalizacja i operator
-**Jako** pracownik salonu, **chcę** żeby system wiedział w jakim jestem salonie, **aby** nie wpisywać tego ręcznie.
+### US-042: Trzy scenariusze decyzji klienta (umowa / protokół / firma)
+**Jako** pracownik salonu, **chcę** wybrać jeden z 3 scenariuszy po pokazaniu ceny, **aby** system wygenerował odpowiedni dokument.
 
 **Kryteria akceptacji:**
-- Salon i operator uzupełniane automatycznie z profilu użytkownika
-- Brak potrzeby ręcznego wybierania lokalizacji
+- Po pokazaniu ceny, 3 opcje:
+  - A) Klient niezainteresowany → KONIEC (brak dalszych kroków)
+  - B) Klient chce umowę od razu (osoba fizyczna) → przejście do danych klienta → umowa
+  - C) Klient zostawia sprzęt do ekspertyzy → przejście do danych klienta → protokół pozostawienia
+- Dla firm: automatycznie scenariusz "protokół przyjęcia sprzętu" (czekamy na fakturę od klienta)
+- Typ dokumentu ustalany automatycznie — brak ręcznego wyboru
+
+### US-043: Numer seryjny dopiero przy finalizacji
+**Jako** pracownik salonu, **chcę** wpisywać numer seryjny dopiero gdy sprzęt zostaje (finalizacja), **aby** nie spowalniać wstępnej wyceny.
+
+**Kryteria akceptacji:**
+- Krok 1 (produkty) NIE wymaga numeru seryjnego
+- Numer seryjny wymagany DOPIERO w kroku 5 (finalizacja) — gdy sprzęt fizycznie zostaje
+- Jeśli klient niezainteresowany (scenariusz A) — numer seryjny w ogóle niepotrzebny
+- Walidacja: nie można wygenerować umowy/protokołu bez numeru seryjnego
+
+### US-044: Firma = tylko NIP, auto-uzupełnienie danych
+**Jako** pracownik salonu, **chcę** wpisać tylko NIP firmy i mieć resztę danych uzupełnioną automatycznie, **aby** nie tracić czasu na ręczne wpisywanie.
+
+**Kryteria akceptacji:**
+- Po wybraniu "firma" — jedyne pole do wypełnienia to NIP
+- Po wpisaniu NIP → system pobiera dane firmy z API (GUS/CEIDG): nazwa, adres, forma prawna
+- Dane wyświetlane do potwierdzenia
+- Dla firm NIE generujemy umowy — czekamy na fakturę od klienta
+- Generujemy "Protokół przyjęcia sprzętu (firma)"
+
+### US-045: Konto bankowe warunkowe (tylko przelew + osoba fizyczna)
+**Jako** pracownik salonu, **chcę** żeby pole "konto bankowe" pojawiało się tylko gdy jest potrzebne, **aby** nie zbierać niepotrzebnych danych.
+
+**Kryteria akceptacji:**
+- Pole "numer konta bankowego" wymagane TYLKO gdy: forma płatności = przelew ORAZ klient = osoba fizyczna
+- Dla karty podarunkowej → pole ukryte
+- Dla firm → pole ukryte (firma wystawia nam fakturę, my płacimy na ich konto z faktury)
+- Walidacja formatu IBAN (26 cyfr)
 
 ---
 
@@ -399,5 +424,5 @@
 ---
 
 *Dokument aktualizowany: 19 marca 2026*
-*Wersja: 1.0*
-*Liczba user stories: 35*
+*Wersja: 1.1*
+*Liczba user stories: 38*

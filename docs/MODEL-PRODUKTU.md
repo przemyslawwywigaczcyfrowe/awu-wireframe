@@ -19,7 +19,8 @@ Wycena #2345 (4 produkty)
 ├── Produkt B (Obiektyw Nikon 14-24mm)
 │   ├── Nie ma w bazie → oznaczony "wycena indywidualna"
 │   ├── Przekazany do centrali → Senior Operator wycenia ręcznie
-│   └── ⏳ Inna osoba, inny czas
+│   ├── ⏳ Inna osoba, inny czas
+│   └── 💡 Przekazanie do centrali dotyczy TEGO produktu, nie całej wyceny
 │
 ├── Produkt C (Lampa Godox V1)
 │   ├── Wykryto usterkę podczas weryfikacji
@@ -221,6 +222,8 @@ AuditEntry {
 4. **Wycena indywidualna** — produkty bez ceny w bazie lub oznaczone jako wymagające eksperta muszą być wycenione przez Senior Operatora / Admina
 
 5. **Pełny audit log** — każdy kontakt z klientem, każda zmiana statusu, każda edycja ceny — wszystko zapisane z kto, kiedy, dlaczego
+
+6. **Przekazanie do centrali = per produkt** — w wycenie z 4 produktami, 1 może zostać przekazany do centrali, a 3 pozostałe idą dalej normalnie. Eskalacja nigdy nie blokuje całej wyceny.
 
 ---
 

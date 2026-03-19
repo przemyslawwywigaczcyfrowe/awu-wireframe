@@ -54,6 +54,10 @@ Jeden klient może przynieść 4 produkty. Z tych 4:
 
 **Każdy produkt ma własną, niezależną ścieżkę.** Wycena grupuje produkty, ale po weryfikacji każdy idzie swoją drogą.
 
+> **Ważne:** Eskalacja ("Przekaż do centrali") działa **per produkt**, nie per wycenę.
+> W jednej wycenie z 4 produktami: 1 produkt może zostać przekazany do centrali,
+> a 3 pozostałe mogą iść dalej normalną ścieżką.
+
 ---
 
 ## 2. CZĘŚĆ I: Od wyceny do umowy
@@ -69,11 +73,34 @@ Są **dwa scenariusze**:
 4. Wycena ważna 7 dni
 5. Klient wysyła sprzęt lub przynosi do salonu
 
-#### Scenariusz B: Klient "z ulicy" w salonie
-1. Klient przychodzi do salonu z produktem — nie robił wyceny online
-2. Pracownik salonu musi szybko: zidentyfikować produkt → ocenić stan → podać cenę
-3. Dziś robi to w Excelu/cenniku papierowym — **to główna bolączka**
-4. Jeśli klient zainteresowany → pracownik wprowadza dane → generuje umowę → klient podpisuje
+#### Scenariusz B: Klient "z ulicy" w salonie (szybka wycena salonowa)
+
+Klient przychodzi do salonu z produktem — nie robił wyceny online. Pracownik obsługuje go w 5 krokach:
+
+**Krok 1: Produkty (wiele!)** — wyszukaj produkt w katalogu, oceń stan, zaznacz akcesoria. Można dodać **wiele produktów** w jednej sesji.
+
+**Krok 2: Cena** — system pokazuje cenę odkupu (przelew vs karta podarunkowa). Senior Operator / Admin widzi dodatkowo cenę sprzedaży i marżę. Senior / Admin może edytować cenę. **Zwykły operator widzi TYLKO cenę odkupu.**
+
+**Krok 3: Decyzja klienta** — 3 możliwe scenariusze:
+- **A) Klient niezainteresowany** → KONIEC, brak dalszych kroków
+- **B) Klient chce umowę od razu** → przejście do danych klienta
+- **C) Klient zostawia sprzęt do ekspertyzy** → przejście do danych klienta
+
+**Krok 4: Dane klienta**
+- Osoba fizyczna: imię, nazwisko, email, telefon, PESEL
+- Firma: TYLKO NIP → dane firmy uzupełniają się automatycznie z API (GUS/CEIDG)
+- Konto bankowe: wymagane TYLKO gdy forma płatności = przelew ORAZ klient = osoba fizyczna. Dla karty podarunkowej lub firmy — NIE wymagane.
+
+**Krok 5: Finalizacja (zależy od scenariusza)**
+- **A) Umowa na miejscu (osoba fizyczna):** wpisz numery seryjne TERAZ, generuj umowę, podpis, rozliczenie
+- **B) Protokół pozostawienia sprzętu:** wpisz numery seryjne TERAZ, generuj protokół (klient dostaje kopię), sprzęt idzie do ekspertyzy później
+- **C) Firma — protokół przyjęcia sprzętu:** wpisz numery seryjne TERAZ, generuj protokół, czekamy na fakturę od klienta
+
+**Kluczowe zmiany vs stary flow:**
+- Numer seryjny wymagany DOPIERO przy finalizacji (gdy sprzęt zostaje), NIE podczas wstępnej oceny
+- Obsługa wielu produktów w jednej sesji
+- Typ dokumentu ustalany automatycznie (osoba fizyczna → umowa, firma → faktura od klienta)
+- Firma: wystarczy NIP, dane auto-uzupełnienie, brak umowy — czekamy na ICH fakturę
 
 ### 2.2 Ekspertyza (weryfikacja)
 
@@ -113,7 +140,7 @@ Wycena przechodzi przez następujące etapy:
 | **Realizacja finansowa** | Przelew/karta w trakcie |
 | **Zakończona** | Rozliczone, zamknięte |
 | **Zwrot do klienta** | Sprzęt wraca do klienta |
-| **Przekazana do centrali** | Eskalacja — salon nie radzi sobie |
+| **Przekazana do centrali** | Eskalacja — dotyczy **konkretnego produktu** (nie całej wyceny). Salon przekazuje 1 produkt do centrali, pozostałe mogą iść dalej normalnie. |
 
 ### 2.4 Umowa
 

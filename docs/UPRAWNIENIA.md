@@ -29,6 +29,14 @@ Pełny dostęp do systemu. Zarządza użytkownikami, ma dostęp do PCC, analityk
 
 ---
 
+## Zasada widoczności cen i marży
+
+> **Cena sprzedaży i marża widoczna TYLKO dla Senior Operator i Admin.**
+> Operator w salonie widzi TYLKO cenę odkupu (ile może zaproponować klientowi).
+> Dotyczy to zarówno szybkiej wyceny salonowej, jak i wszystkich innych widoków z cenami.
+
+---
+
 ## Matryca uprawnień
 
 ### Część I: Odkup
@@ -44,6 +52,7 @@ Pełny dostęp do systemu. Zarządza użytkownikami, ma dostęp do PCC, analityk
 | Korekta ceny produktu | ❌ | ✅ | ✅ |
 | Zmiana statusu wyceny | ✅ (ograniczone*) | ✅ | ✅ |
 | Przekazanie produktu do centrali (do wyceny eksperta) | ✅ | ✅ | ✅ |
+| Podgląd ceny sprzedaży / marży | ❌ | ✅ | ✅ |
 | Generowanie umowy | ✅ | ✅ | ✅ |
 | Anulowanie umowy | ❌ | ❌ | ✅ |
 | Wysyłanie maili do klienta | ✅ | ✅ | ✅ |

@@ -55,6 +55,7 @@
 - Operator widzi tylko swój salon
 - Admin widzi wszystkie lokalizacje
 - Domyślne sortowanie: od najnowszych
+- "Przekaż do centrali" w liście dotyczy **konkretnego produktu**, nie całej wyceny
 
 **Zależności:** Moduł 12 (Użytkownicy — role i lokalizacje)
 
@@ -81,6 +82,7 @@
 **Reguły:**
 - Przyciski akcji zależne od aktualnego statusu i roli
 - "Zmień status" waliduje warunki przejścia
+- "Przekaż do centrali" działa **per produkt** — nie blokuje pozostałych produktów w wycenie
 
 **Zależności:** Moduł 1 (nawigacja), Moduł 3 (weryfikacja), Moduł 4 (umowy)
 
@@ -137,20 +139,39 @@
 **Priorytet:** Krytyczny (MVP)
 **Ścieżka:** `/salon/szybka-wycena`
 
-**Zakres (6-krokowy stepper):**
-1. **Identyfikacja produktu** — wyszukiwanie z katalogu / skan kodu / ręczne wpisanie
-2. **Ocena stanu** — stan (5-10), akcesoria, numer seryjny
-3. **Proponowana cena** — cena przelew vs karta, marża, korekta (senior)
-4. **Dane klienta** — imię, nazwisko, email, telefon, PESEL, typ klienta
-5. **Generowanie umowy** — typ dokumentu, metoda podpisu
-6. **Podsumowanie** — numer umowy, drukuj, nowa wycena
+**Zakres (5-krokowy stepper):**
 
-**Reguły:**
+1. **Produkty (wiele!)** — wyszukiwanie z katalogu / skan kodu / ręczne wpisanie. Ocena stanu (5-10), zaznaczenie akcesoriów. Można dodać **wiele produktów** w jednej sesji.
+
+2. **Cena** — cena odkupu: przelew vs karta podarunkowa. Widoczność:
+   - Operator: widzi TYLKO cenę odkupu (ile zaproponować klientowi)
+   - Senior Operator / Admin: widzi cenę odkupu + cenę sprzedaży + marżę
+   - Senior Operator / Admin: może edytować cenę
+
+3. **Decyzja klienta** — 3 scenariusze:
+   - A) Klient niezainteresowany → KONIEC
+   - B) Klient chce umowę od razu → przejdź do danych klienta
+   - C) Klient zostawia sprzęt do ekspertyzy → przejdź do danych klienta
+
+4. **Dane klienta**
+   - Osoba fizyczna: imię, nazwisko, email, telefon, PESEL
+   - Firma: TYLKO NIP → dane firmy auto-uzupełnienie z API (GUS/CEIDG)
+   - Konto bankowe: wymagane TYLKO gdy płatność = przelew ORAZ klient = osoba fizyczna
+
+5. **Finalizacja** (zależy od scenariusza z kroku 3):
+   - A) Umowa na miejscu (os. fizyczna): numery seryjne TERAZ → generuj umowę → podpis → rozliczenie
+   - B) Protokół pozostawienia sprzętu: numery seryjne TERAZ → generuj protokół (klient dostaje kopię) → sprzęt do ekspertyzy
+   - C) Firma — protokół przyjęcia: numery seryjne TERAZ → generuj protokół → czekamy na fakturę od klienta
+
+**Kluczowe reguły:**
 - Salon i operator uzupełniane automatycznie z sesji
-- Korekta ceny wymaga roli Senior Operator
+- Numer seryjny wymagany DOPIERO przy finalizacji (gdy sprzęt zostaje), NIE podczas wstępnej oceny
+- Typ dokumentu ustalany automatycznie: osoba fizyczna → umowa, firma → czekamy na ich fakturę
+- Korekta ceny wymaga roli Senior Operator / Admin
 - Cena z bazy Verto (jeśli jest w katalogu) lub ręczna (jeśli poza katalogiem)
+- Konto bankowe NIE wymagane dla karty podarunkowej ani dla firm
 
-**Zależności:** Katalog produktów, Moduł 4 (umowy)
+**Zależności:** Katalog produktów, Moduł 4 (umowy), API GUS/CEIDG (auto-uzupełnienie danych firmy)
 
 ---
 
