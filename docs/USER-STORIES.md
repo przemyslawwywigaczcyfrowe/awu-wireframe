@@ -375,13 +375,14 @@
 
 ## 8. PCC
 
-### US-070: Lista umów podlegających PCC
-**Jako** admin, **chcę** widzieć listę umów podlegających PCC z podziałem na miesiące, **aby** przygotować raport dla księgowości.
+### US-070: Skanowanie kodu kurierskiego z etykiety przesyłki
+**Jako** operator, **chcę** zeskanować kod kreskowy z etykiety kurierskiej (DPD, InPost) w widoku listy wycen, **aby** automatycznie otworzyć powiązaną wycenę bez ręcznego szukania.
 
 **Kryteria akceptacji:**
-- Lista umów > 1000 zł z datą, klientem, kwotą
-- Podział na miesiące rozliczeniowe
-- Podsumowanie: liczba umów, łączna wartość, kwota PCC (2%)
+- Pole skanowania kodu kreskowego na górze listy wycen
+- Skan numeru listu przewozowego DPD lub InPost automatycznie otwiera powiązaną wycenę
+- Jeśli brak dopasowania — komunikat "Nie znaleziono wyceny dla tego numeru przesyłki"
+- Dla przesyłek "wysyłka własna" brak automatycznego powiązania — operator szuka ręcznie
 
 ### US-071: Porównanie kwot umowa vs Verto
 **Jako** admin, **chcę** porównać kwotę z umowy z kwotą z Verto, **aby** wykryć rozbieżności.
@@ -478,6 +479,46 @@
 
 ---
 
+## 12. Dostawa i identyfikacja przesyłek
+
+### US-110: Otwarcie modalu szczegółów produktu z poziomu wyceny
+**Jako** operator, **chcę** kliknąć na produkt w wycenie i otworzyć modal z zakładkami (Info, Weryfikacja, Notatki, Historia), **aby** nie potrzebować osobnej zakładki weryfikacji.
+
+**Kryteria akceptacji:**
+- Kliknięcie w wiersz produktu otwiera modal (overlay, bez przeładowania strony)
+- Modal zawiera 4 zakładki: Info, Weryfikacja, Notatki, Historia
+- Zakładka Weryfikacja zawiera pełny formularz weryfikacji (ocena stanu, S/N, akcesoria, rozbieżności)
+- Przycisk "Przekaż do centrali" dostępny w modalu per produkt
+- Badge statusu weryfikacji widoczny: "✓ Zweryfikowany", "⚠ Rozbieżność", "Do weryfikacji", "🔧 Serwis"
+
+### US-111: Widoczność kroku Kanban przy produktach w wycenie
+**Jako** operator, **chcę** widzieć aktualny krok Kanban przy każdym produkcie w wycenie, **aby** wiedzieć na jakim etapie przygotowania do sprzedaży się znajduje.
+
+**Kryteria akceptacji:**
+- Krok Kanban wyświetlany jako badge przy produkcie (np. "Regał", "Indeks", "Sesja")
+- Widoczny tylko dla produktów, które przeszły do procesu post-zakupowego (mają umowę)
+- Produkty bez kroku Kanban nie wyświetlają badge
+
+### US-112: Notatki wewnętrzne per wycena i per produkt
+**Jako** operator, **chcę** dodawać notatki wewnętrzne zarówno do całej wyceny, jak i do poszczególnych produktów, **aby** przekazywać informacje kolegom na odpowiednim poziomie szczegółowości.
+
+**Kryteria akceptacji:**
+- Notatka per wycena: widoczna w widoku szczegółów wyceny
+- Notatka per produkt: widoczna w zakładce Notatki w modalu produktu
+- Notatki oznaczone jako "wewnętrzne" — niewidoczne dla klienta
+- Każda notatka zawiera: autora, datę, treść
+- Możliwość dodawania wielu notatek (lista chronologiczna)
+
+### US-113: Ręczne wyszukanie wyceny dla wysyłki własnej klienta
+**Jako** operator, **chcę** po otwarciu przesyłki wysłanej przez klienta własną metodą (nie DPD/InPost) ręcznie znaleźć powiązaną wycenę po numerze, nazwisku lub emailu, **aby** móc zidentyfikować nadawcę i rozpocząć weryfikację.
+
+**Kryteria akceptacji:**
+- Wyszukiwarka w liście wycen obsługuje: nr wyceny, nazwisko klienta, email, telefon
+- Brak automatycznego powiązania z przesyłką "wysyłka własna"
+- Po znalezieniu wyceny — operator może ją otworzyć i rozpocząć weryfikację
+
+---
+
 *Dokument aktualizowany: 19 marca 2026*
-*Wersja: 1.1*
-*Liczba user stories: 41*
+*Wersja: 1.2*
+*Liczba user stories: 45*

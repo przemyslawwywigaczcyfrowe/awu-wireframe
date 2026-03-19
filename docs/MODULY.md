@@ -16,7 +16,7 @@
 │  ┌─────────────────────┐  │  ┌───────────────────────────────┐  │
 │  │ 1. Lista wycen      │  │  │ 6. Kanban produktów           │  │
 │  │ 2. Szczegóły wyceny │  │  │    (Nowy → Regał → Indeks     │  │
-│  │ 3. Weryfikacja      │  │  │     → KGM → Sesja → Karta     │  │
+│  │ 3. Szczegóły wyceny │  │  │     → KGM → Sesja → Karta     │  │
 │  │ 4. Umowy            │  │  │     → PZ → Front → Allegro)  │  │
 │  │ 5. Salon Quick      │  │  │                               │  │
 │  └─────────────────────┘  │  └───────────────────────────────┘  │
@@ -44,6 +44,7 @@
 **Ścieżka:** `/wyceny`
 
 **Zakres:**
+- Pole skanowania kodu kreskowego etykiety kurierskiej (DPD, InPost) — skan otwiera powiązaną wycenę automatycznie. Dla "wysyłka własna" klienta brak automatycznego powiązania — wymagane ręczne wyszukanie.
 - Tabela wszystkich wycen z paginacją
 - Widok kompaktowy: nr wyceny, data, klient, status, kwota
 - Filtrowanie: status + zakres dat (priorytetowe), lokalizacja, operator, nr przesyłki (rozszerzone)
@@ -88,21 +89,39 @@
 
 ---
 
-### Moduł 3: Weryfikacja produktu
+### Moduł 3: Modal szczegółów produktu (weryfikacja + notatki + historia)
 **Priorytet:** Krytyczny (MVP)
-**Widok:** Zakładka w szczegółach wyceny
+**Widok:** Modal otwierany po kliknięciu w produkt w szczegółach wyceny
 
 **Zakres:**
+- Modal z 4 zakładkami: **Info**, **Weryfikacja**, **Notatki**, **Historia**
+
+**Zakładka Info:**
+- Dane produktu: nazwa, indeks Verto, S/N, numer CYF, cena
+- Aktualny krok Kanban (jeśli produkt jest w procesie post-zakupowym)
+- Link do powiązanej wyceny i umowy
+- Badge statusu weryfikacji: "✓ Zweryfikowany", "⚠ Rozbieżność", "Do weryfikacji", "🔧 Serwis"
+
+**Zakładka Weryfikacja:**
 - Formularz weryfikacji per produkt:
   - Ocena stanu (dropdown 5-10/10 z opisami)
   - Numer seryjny (pole tekstowe)
   - Akcesoria (checkboxy — lista z katalogu produktu)
-  - Notatka wewnętrzna
 - Porównanie: deklarowane vs zweryfikowane (side-by-side)
 - Automatyczne przeliczanie ceny po zmianie
 - Wykrywanie rozbieżności z wizualnym alertem
 - Oznaczenie "Wymaga serwisu" z opisem problemu
 - "Zapisz roboczo" / "Zakończ weryfikację"
+- Przycisk "Przekaż do centrali" (per produkt)
+
+**Zakładka Notatki:**
+- Notatki wewnętrzne per produkt (nie dla klienta)
+- Dodawanie, edycja, usuwanie notatek
+- Każda notatka: autor, data, treść
+
+**Zakładka Historia:**
+- Audit log per produkt: kto, kiedy, co zmienił
+- Zmiany statusów, weryfikacji, notatek
 
 **Reguły:**
 - Akcesoria ODEJMOWANE od ceny (nie dodawane)

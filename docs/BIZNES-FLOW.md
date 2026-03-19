@@ -69,7 +69,11 @@ Są **dwa scenariusze**:
 #### Scenariusz A: Klient online
 1. Klient wchodzi na cyfrowe.pl → wybiera produkt → ocenia stan (5-10/10) → zaznacza akcesoria
 2. System pokazuje wstępną cenę (przelew vs karta podarunkowa)
-3. Klient wybiera formę rozliczenia i sposób dostawy (kurier DPD / salon / InPost)
+3. Klient wybiera formę rozliczenia i sposób dostawy:
+   - **Kurier DPD** — powiązany z wycenią przez numer listu przewozowego (automatyczne otwarcie wyceny po skanie)
+   - **Paczkomat InPost** — powiązany z wycenią przez numer przesyłki (automatyczne otwarcie wyceny po skanie)
+   - **Wysyłka własna klienta** — BEZ powiązania z wycenią, identyfikacja ręczna po otwarciu przesyłki (operator szuka po nazwisku/emailu/nr wyceny)
+   - **Salon** — klient przynosi osobiście
 4. Wycena ważna 7 dni
 5. Klient wysyła sprzęt lub przynosi do salonu
 

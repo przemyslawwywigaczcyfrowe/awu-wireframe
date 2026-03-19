@@ -126,7 +126,7 @@ Appraisal {
   // Warunki
   agreementType         : enum (UMOWA_OSOBY_FIZ, UMOWA_OSOBY_FIZ_VAT, FAKTURA_VAT)
   paymentType           : enum (PRZELEW, KARTA_PODARUNKOWA, GOTOWKA, PRZELEW_ODWROTNY, KARTA_PELNA_OPIEKA)
-  collectionType        : enum (KURIER_DPD, SALON, INPOST)
+  collectionType        : enum (KURIER_DPD, PACZKOMAT_INPOST, WYSYLKA_WLASNA, SALON)
 
   // Status
   status                : AppraisalStatus
@@ -215,8 +215,8 @@ Shipment {
   id                    : UUID
   appraisalId           : FK → Appraisal
 
-  type                  : enum (PRZYCHODZACA_KURIER, PRZYCHODZACA_SALON, ZWROT_KURIER, ZWROT_INPOST)
-  carrier               : enum (DPD, INPOST, SALON)
+  type                  : enum (KURIER_DPD, PACZKOMAT_INPOST, WYSYLKA_WLASNA, PRZYCHODZACA_SALON, ZWROT_KURIER, ZWROT_INPOST)
+  carrier               : enum (DPD, INPOST, WLASNA, SALON)
   trackingNumber        : string | null
 
   status                : enum (ZAMOWIONA, ODEBRANA, W_TRANSPORCIE, DOSTARCZONA, ZWROCONA)
@@ -227,6 +227,11 @@ Shipment {
   updatedAt             : datetime
 }
 ```
+
+> **Metody dostawy przychodzące (3 typy):**
+> - `KURIER_DPD` — numer listu przewozowego DPD powiązany z wycenią, wyszukiwalny ze skanerem na liście wycen
+> - `PACZKOMAT_INPOST` — numer przesyłki InPost powiązany z wycenią, wyszukiwalny ze skanerem na liście wycen
+> - `WYSYLKA_WLASNA` — klient wysyła własną metodą, BEZ numeru trackingowego powiązanego z wycenią. Identyfikacja ręczna po otwarciu przesyłki (wyszukanie po nazwisku/emailu/nr wyceny).
 
 #### ServiceTicket (zlecenie serwisowe)
 ```
