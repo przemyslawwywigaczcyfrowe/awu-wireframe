@@ -31,7 +31,7 @@ CZĘŚĆ I: ODKUP                    CZĘŚĆ II: PRZYGOTOWANIE DO SPRZEDAŻY
 ┌──────────────────────────┐      ┌──────────────────────────────────────┐
 │                          │      │                                      │
 │  Klient zgłasza sprzęt   │─────▶│  Produkt przygotowywany do sprzedaży │
-│  → weryfikujemy stan     │      │  → indeks → zdjęcia → karta → PZK   │
+│  → weryfikujemy stan     │      │  → indeks → zdjęcia → karta → PZ   │
 │  → proponujemy cenę      │      │  → aktywacja na stronie + Allegro    │
 │  → podpisujemy umowę     │      │                                      │
 │                          │      │                                      │
@@ -173,7 +173,7 @@ Po podpisaniu umowy każdy produkt przechodzi przez **Kanban przygotowania do sp
 ### Przegląd kroków
 
 ```
-NOWY → REGAŁ → INDEKS* → KGM → SESJA → KARTA → PZK* → FRONT → ALLEGRO
+NOWY → REGAŁ → INDEKS* → KGM → SESJA → KARTA → PZ* → FRONT → ALLEGRO
                   ⚠️                               ⚠️
                BLOKER #1                         BLOKER #2
 ```
@@ -211,16 +211,16 @@ Utworzenie indeksu produktu w systemie Verto (ERP). **Bez indeksu nic dalej się
 - Uzupełnienie listingu w Sylius (sklep internetowy)
 - Karta tworzy się automatycznie z indeksu, ale jest **pusta** — trzeba ręcznie wpisać: stan, przebieg, opis
 
-#### Krok 7: PZK ⚠️ BLOKER #2
+#### Krok 7: PZ ⚠️ BLOKER #2
 - Przyjęcie towaru na stan w Verto (PZ-ka)
-- **Bez PZK nie można uruchomić produktu na froncie**
+- **Bez PZ nie można uruchomić produktu na froncie**
 - Wymaga fizycznej umowy/faktury w centrali
 - Numer wewnętrzny: 03/RACH (seria 03 = używane)
 
-> **Ważne:** Karta produktu (krok 6) i PZK (krok 7) są od siebie **niezależne**. Mogą być robione w dowolnej kolejności, ale **oba** muszą być gotowe, żeby przejść dalej.
+> **Ważne:** Karta produktu (krok 6) i PZ (krok 7) są od siebie **niezależne**. Mogą być robione w dowolnej kolejności, ale **oba** muszą być gotowe, żeby przejść dalej.
 
 #### Krok 8: DO URUCHOMIENIA (FRONT)
-- Oba warunki spełnione (PZK + karta produktu)
+- Oba warunki spełnione (PZ + karta produktu)
 - MMK — przesunięcie towaru z magazynu "używany" na magazyn główny
 - Aktywacja produktu na stronie cyfrowe.pl
 
@@ -310,7 +310,7 @@ W zeszłym roku było to **kilkaset tysięcy złotych**, których nikt nie widzi
 | Ręczne arkusze | Wszystko powyżej | → Jeden system AWU |
 
 **Integracje** (nie zastępujemy, ale łączymy się):
-- **Verto** — indeksy, PZK, ceny, dokumenty zakupu
+- **Verto** — indeksy, PZ, ceny, dokumenty zakupu
 - **Sylius** — karty produktów na stronie
 - **Baselinker** — aukcje Allegro
 - **Cyfrolog** — numery CYF / kody EAN
@@ -324,7 +324,7 @@ W zeszłym roku było to **kilkaset tysięcy złotych**, których nikt nie widzi
 | **AWU** | System do zarządzania skupem produktów używanych (ten który budujemy) |
 | **Ekspertyza** | Fizyczna weryfikacja stanu sprzętu przez operatora |
 | **Indeks** | Numer identyfikacyjny produktu w systemie Verto |
-| **PZK** | Przyjęcie Zewnętrzne Kupno — formalne przyjęcie towaru na stan w Verto |
+| **PZ** | Przyjęcie Zewnętrzne Kupno — formalne przyjęcie towaru na stan w Verto |
 | **MMK** | Przesunięcie Magazynowe — zmiana magazynu z "używany" na główny |
 | **KGM** | Karta Gwarancyjna — indywidualny dokument gwarancji dla każdego produktu |
 | **PCC** | Podatek od Czynności Cywilnoprawnych — naliczany od umów > 1000 zł |

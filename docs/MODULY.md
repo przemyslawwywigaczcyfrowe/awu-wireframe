@@ -188,6 +188,9 @@
 - Wizualne blokery: Indeks (BLOKER #1), PZ (BLOKER #2)
 - Filtry: operator, tydzień, lokalizacja
 - Łączna liczba produktów w pipeline
+- Każde przejście między kolumnami wymaga od operatora potwierdzenia określonych checkboxów, zanim produkt może przejść dalej
+- Wszystkie potwierdzenia logowane z timestampem i nazwą operatora w audit logu produktu
+- Produkty aktualnie w serwisie oznaczone wizualnie na tablicy Kanban (pomarańczowa ramka + badge "🔧 Serwis")
 
 **Reguły:**
 - Indeks blokuje: KGM, Sesja, Karta
@@ -195,6 +198,19 @@
 - Front wymaga ZARÓWNO karty produktu JAK I PZ
 - Ręczne dodawanie produktów (B2B/faktury bez CSV)
 - Śledzenie pracy tygodniówkami (numer tygodnia)
+
+**Wymagania przejść między kolumnami:**
+
+| Przejście | Wymagane potwierdzenia |
+|-----------|----------------------|
+| Nowy → Regał | Produkt fizycznie odebrany, Umowa/faktura zweryfikowana |
+| Regał → Indeks | Produkt wyczyszczony i zresetowany, Akcesoria uzupełnione, Odłożony na regał |
+| Indeks → KGM | Indeks Verto utworzony, Numer indeksu wpisany |
+| KGM → Sesja | Karta gwarancyjna wydrukowana, Naklejka EAN wydrukowana, Naklejki fizycznie dołożone |
+| Sesja → Karta | Zdjęcia wykonane, Zdjęcia usterek (jeśli są), Produkt spakowany |
+| Karta → PZ | Karta w Sylius uzupełniona, Cena sprzedaży ustawiona |
+| PZ → Front | Dokument PZ wprowadzony do Verto, Numer PZ zapisany |
+| Front → Allegro | MMK wykonane, Produkt aktywowany na cyfrowe.pl |
 
 **Zależności:** Moduł 4 (umowa podpisana → produkt wchodzi na Kanban)
 

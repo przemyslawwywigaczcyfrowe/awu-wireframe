@@ -288,6 +288,33 @@
 - Możliwość dodania wielu produktów naraz (bulk)
 - Produkty pojawiają się w kolumnie "Nowy"
 
+### US-055: Potwierdzanie checklisty przy przejściu Kanban
+**Jako** operator, **chcę** potwierdzić określone elementy checklisty przed przeniesieniem produktu do kolejnego kroku Kanbanu, **aby** nic nie zostało pominięte.
+
+**Kryteria akceptacji:**
+- Przy próbie przeniesienia produktu wyświetla się lista wymagań do potwierdzenia
+- Każde wymaganie to checkbox, który operator musi zaznaczyć
+- Przeniesienie niemożliwe bez zaznaczenia wszystkich wymaganych checkboxów
+- Lista wymagań jest specyficzna dla każdego przejścia (np. Nowy → Regał wymaga innych potwierdzeń niż Regał → Indeks)
+
+### US-056: Historia potwierdzeń przejść produktu
+**Jako** admin, **chcę** widzieć pełną historię produktu wraz ze wszystkimi potwierdzeniami przejść, **aby** móc audytować proces.
+
+**Kryteria akceptacji:**
+- Audit log produktu zawiera wpisy dla każdego przejścia między kolumnami
+- Każdy wpis zawiera: kto przeniósł, kiedy, z jakiej kolumny na jaką
+- Przy każdym przejściu widoczna lista potwierdzonych wymagań z timestampami
+- Historia dostępna z poziomu karty produktu na Kanbanie
+
+### US-057: Wizualne oznaczenie produktów w serwisie na Kanbanie
+**Jako** operator, **chcę** widzieć które produkty na Kanbanie są aktualnie w serwisie, **aby** wiedzieć że nie powinienem ich przetwarzać.
+
+**Kryteria akceptacji:**
+- Produkty w serwisie mają pomarańczową ramkę na karcie Kanbanu
+- Widoczny badge "🔧 Serwis" na karcie produktu
+- Po najechaniu na badge widoczna notatka serwisowa (np. "Diagnostyka obiektywu")
+- Produkty w serwisie nie mogą być przenoszone między kolumnami
+
 ---
 
 ## 7. Serwis

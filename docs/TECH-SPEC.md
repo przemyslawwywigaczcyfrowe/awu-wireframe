@@ -30,7 +30,7 @@
 │  ┌───────────────┐  │  ┌─────────────────────────────────┐  │
 │  │ Lista wycen   │  │  │ Kanban produktów                │  │
 │  │ Szczegóły     │  │  │ (Nowy → Regał → Indeks → KGM   │  │
-│  │ Weryfikacja   │  │  │  → Sesja → Karta → PZK         │  │
+│  │ Weryfikacja   │  │  │  → Sesja → Karta → PZ         │  │
 │  │ Negocjacje    │  │  │  → Front → Allegro)             │  │
 │  │ Umowy         │  │  │                                 │  │
 │  │ Salon Quick   │  │  │                                 │  │
@@ -350,16 +350,43 @@ Z dowolnego statusu (przed UMOWA PODPISANA):
 ### 3.2 Krok Kanban (KanbanStep)
 
 ```
-NOWY → REGAL → INDEKS → KGM_WYDRUK → SESJA_PAKOWANIE → KARTA_PRODUKTU → PZK → FRONT → ALLEGRO → SPRZEDANY
+NOWY → REGAL → INDEKS → KGM_WYDRUK → SESJA_PAKOWANIE → KARTA_PRODUKTU → PZ → FRONT → ALLEGRO → SPRZEDANY
 
 Typowy flow (kolejność niezmuszona przez system):
 - INDEKS zazwyczaj blokuje: KGM_WYDRUK, SESJA_PAKOWANIE, KARTA_PRODUKTU
-- PZK zazwyczaj blokuje: FRONT
-- KARTA_PRODUKTU + PZK → oba zalecane przed FRONT
+- PZ zazwyczaj blokuje: FRONT
+- KARTA_PRODUKTU + PZ → oba zalecane przed FRONT
 - Z dowolnego kroku: → SERWIS (ścieżka boczna)
 
 > Zasada projektowa: jak w statusach wyceny — brak wymuszonych ograniczeń przejść na obecnym etapie.
 ```
+
+### 3.2.1 Wymagania przejść Kanban (TransitionRequirement)
+
+Każde przejście między kolumnami wymaga potwierdzenia checklisty. Model danych:
+
+```
+TransitionRequirement {
+  id        : UUID
+  label     : string          // np. "Produkt fizycznie odebrany"
+  checked   : boolean         // czy operator potwierdził
+}
+```
+
+Każde przejście tworzy wpisy w logu:
+- **Wpis przejścia**: kto, kiedy, z jakiej kolumny na jaką
+- **Wpisy potwierdzeń**: po jednym dla każdego potwierdzonego wymagania (requirement label, operator, timestamp)
+
+Produkty aktualnie w serwisie są oznaczane flagą:
+```
+Product {
+  ...
+  inService     : boolean       // czy produkt jest aktualnie w serwisie
+  serviceNote   : string | null // notatka serwisowa (np. "Diagnostyka obiektywu")
+}
+```
+
+Produkty z `inService: true` są wyświetlane na Kanbanie z pomarańczową ramką i badge "🔧 Serwis".
 
 ### 3.3 Status serwisowy (ServiceStatus)
 
@@ -410,7 +437,7 @@ DIAGNOSTYKA → WYCENA_NAPRAWY → OCZEKUJE_DECYZJI → W_NAPRAWIE → ZAKONCZON
 
 ### Moduł 6: Kanban produktów
 - Widok tablicowy: kolumny per krok
-- Blokery widoczne wizualnie (INDEKS, PZK)
+- Blokery widoczne wizualnie (INDEKS, PZ)
 - Drag & drop między krokami
 - Filtry: lokalizacja, data, operator
 - Podgląd szczegółów produktu z poziomu karty
@@ -467,8 +494,8 @@ DIAGNOSTYKA → WYCENA_NAPRAWY → OCZEKUJE_DECYZJI → W_NAPRAWIE → ZAKONCZON
 
 | System | Kierunek | Dane | Priorytet |
 |--------|----------|------|-----------|
-| **Verto** | ← odczyt | Indeksy, ceny finalne, dokumenty zakupu, PZK, stany magazynowe | Wysoki |
-| **Verto** | → zapis | Tworzenie indeksów, PZK, MMK | Wysoki |
+| **Verto** | ← odczyt | Indeksy, ceny finalne, dokumenty zakupu, PZ, stany magazynowe | Wysoki |
+| **Verto** | → zapis | Tworzenie indeksów, PZ, MMK | Wysoki |
 | **Sylius** | → zapis | Karty produktów (opis, stan, zdjęcia) | Średni |
 | **Baselinker** | → zapis | Aukcje Allegro (cena, opis, kategoria) | Średni |
 | **Thulium** | ↔ dwukierunkowa | Wysyłanie/odbiór wiadomości, tickety | Wysoki |
@@ -528,7 +555,7 @@ DIAGNOSTYKA → WYCENA_NAPRAWY → OCZEKUJE_DECYZJI → W_NAPRAWIE → ZAKONCZON
 
 - **US-040**: Jako operator, chcę widzieć tablicę Kanban z produktami na każdym kroku przygotowania do sprzedaży.
 - **US-041**: Jako operator, chcę przenosić produkty między krokami Kanbanu (drag & drop).
-- **US-042**: Jako operator, chcę widzieć blokery (Indeks, PZK) wizualnie — żebym wiedział co blokuje postęp.
+- **US-042**: Jako operator, chcę widzieć blokery (Indeks, PZ) wizualnie — żebym wiedział co blokuje postęp.
 - **US-043**: Jako admin, chcę widzieć ile produktów czeka na każdym kroku, abym mógł zarządzać zasobami.
 
 ### CZĘŚĆ III: Serwis
