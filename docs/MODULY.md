@@ -182,15 +182,18 @@
 **Ścieżka:** `/kanban`
 
 **Zakres:**
-- Tablica 9 kolumn: Nowy → Regał → Indeks → KGM → Sesja → Karta → PZ → Front → Allegro
+- Horyzontalnie przewijana tablica (Trello-style) z 9 kolumnami: Nowy → Regał → Indeks → KGM → Sesja → Karta → PZ → Front → Allegro
 - Karty produktów: numer CYF, nazwa, numer umowy, tydzień, operator
-- Drag & drop między kolumnami
+- Kliknięcie karty → modal szczegółów produktu z 3 zakładkami:
+  - **Info** — dane produktu (nazwa, S/N, cena, klient, umowa), link do powiązanej wyceny
+  - **Historia** — pełny audit log (kto, kiedy, co zmienił, przejścia między kolumnami)
+  - **Serwis** — widoczna tylko gdy produkt jest/był w serwisie: szczegóły zgłoszenia, serwisant, koszty, daty, logi serwisowe
+- Bezpośredni link z karty produktu do jego wyceny
+- Drag & drop między kolumnami z potwierdzeniem (system wyświetla checklistę wymaganych warunków)
 - Wizualne blokery: Indeks (BLOKER #1), PZ (BLOKER #2)
+- Produkty w serwisie wizualnie wyróżnione (pomarańczowa ramka, badge "Serwis")
 - Filtry: operator, tydzień, lokalizacja
 - Łączna liczba produktów w pipeline
-- Każde przejście między kolumnami wymaga od operatora potwierdzenia określonych checkboxów, zanim produkt może przejść dalej
-- Wszystkie potwierdzenia logowane z timestampem i nazwą operatora w audit logu produktu
-- Produkty aktualnie w serwisie oznaczone wizualnie na tablicy Kanban (pomarańczowa ramka + badge "🔧 Serwis")
 
 **Reguły:**
 - Indeks blokuje: KGM, Sesja, Karta
@@ -212,7 +215,7 @@
 | PZ → Front | Dokument PZ wprowadzony do Verto, Numer PZ zapisany |
 | Front → Allegro | MMK wykonane, Produkt aktywowany na cyfrowe.pl |
 
-**Zależności:** Moduł 4 (umowa podpisana → produkt wchodzi na Kanban)
+**Zależności:** Moduł 4 (umowa podpisana → produkt wchodzi na Kanban), Moduł 7 (dane serwisowe w zakładce Serwis)
 
 ---
 

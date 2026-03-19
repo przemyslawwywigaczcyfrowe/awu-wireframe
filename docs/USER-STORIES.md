@@ -315,11 +315,39 @@
 - Po najechaniu na badge widoczna notatka serwisowa (np. "Diagnostyka obiektywu")
 - Produkty w serwisie nie mogą być przenoszone między kolumnami
 
+### US-058: Podgląd szczegółów produktu z karty Kanban
+**Jako** operator, **chcę** kliknąć na kartę Kanban, aby zobaczyć pełne szczegóły produktu — numer seryjny, cenę, dane klienta oraz bezpośredni link do wyceny, **aby** mieć szybki dostęp do kontekstu bez opuszczania tablicy.
+
+**Kryteria akceptacji:**
+- Kliknięcie karty otwiera modal z 3 zakładkami: Info, Historia, Serwis
+- Zakładka Info zawiera: nazwę produktu, numer CYF, S/N, cenę, dane klienta, numer umowy
+- Zakładka Info zawiera klikalny link do powiązanej wyceny
+- Modal nie wymaga przeładowania strony (overlay nad tablicą)
+
+### US-059: Drag & drop z potwierdzeniem checklisty
+**Jako** operator, **chcę** przeciągać karty między kolumnami Kanban, a system powinien poprosić mnie o potwierdzenie wymaganych warunków, **aby** nie pominąć obowiązkowych kroków.
+
+**Kryteria akceptacji:**
+- Drag & drop między kolumnami uruchamia dialog potwierdzenia
+- Dialog wyświetla checklistę wymaganych warunków dla docelowej kolumny
+- Operator musi potwierdzić spełnienie warunków przed przeniesieniem
+- Jeśli bloker aktywny (np. brak Indeksu) — przeniesienie zablokowane z komunikatem
+- Po potwierdzeniu: zapis automatyczny + wpis w historii produktu
+
+### US-060: Szczegóły serwisu z karty Kanban
+**Jako** operator, **chcę** zobaczyć pełne szczegóły zgłoszenia serwisowego (serwisant, status, koszty, daty, logi) po kliknięciu na produkt w serwisie, **aby** mieć pełny obraz sytuacji bez przełączania modułów.
+
+**Kryteria akceptacji:**
+- Zakładka Serwis w modalu widoczna tylko dla produktów z aktywnym lub zakończonym serwisem
+- Wyświetla: nazwę serwisanta, status naprawy, koszt diagnostyki i naprawy, daty (przyjęcie, zakończenie)
+- Logi serwisowe (historia zmian statusu serwisu) w formie timeline
+- Produkty w serwisie oznaczone na tablicy pomarańczową ramką i badge "Serwis"
+
 ---
 
 ## 7. Serwis
 
-### US-060: Rejestracja zlecenia serwisowego
+### US-063: Rejestracja zlecenia serwisowego
 **Jako** operator, **chcę** zarejestrować zlecenie serwisowe powiązane z produktem, **aby** śledzić naprawę.
 
 **Kryteria akceptacji:**
@@ -327,7 +355,7 @@
 - Pole: opis problemu, serwisant, koszt diagnostyki
 - Powiązanie z produktem i wycenią
 
-### US-061: Śledzenie statusu naprawy
+### US-064: Śledzenie statusu naprawy
 **Jako** operator, **chcę** śledzić status naprawy i jej koszty, **aby** informować klienta o postępie.
 
 **Kryteria akceptacji:**
@@ -335,7 +363,7 @@
 - Widoczny koszt diagnostyki i naprawy
 - Informacja kto ponosi koszt (klient / Cyfrowe.pl)
 
-### US-062: Dashboard kosztów serwisowych
+### US-065: Dashboard kosztów serwisowych
 **Jako** admin, **chcę** widzieć sumaryczne koszty serwisowe per miesiąc/rok, **aby** kontrolować ukryte koszty.
 
 **Kryteria akceptacji:**
@@ -452,4 +480,4 @@
 
 *Dokument aktualizowany: 19 marca 2026*
 *Wersja: 1.1*
-*Liczba user stories: 38*
+*Liczba user stories: 41*
